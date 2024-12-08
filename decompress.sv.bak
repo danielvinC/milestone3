@@ -1,0 +1,19 @@
+module decompress(
+    input logic [31:0] instr_i,
+    output logic [31:0] instr_o
+);
+    always_comb begin
+        case (instr_i[1:0])
+            2'b01: begin
+                case(instr_i[15:13])
+                    3'b000: begin
+                        instr_o = {2'b0, instr_i[10:7], instr_i[12:11], instr_i[5], instr_i[6], 2'b00, 5'h02, 3'b000, 2'b01, instr_i[4:2], 7'b00_100_11};
+                    end
+                endcase 
+            end 
+            default: begin
+                instr_o = instr_i;
+            end
+        endcase   
+    end
+endmodule
